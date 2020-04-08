@@ -1,0 +1,7 @@
+! ----- names for bodies -----
+$ air = 1
+! ----- names for boundaries -----
+$ cube = 2
+$ inlet = 3
+$ outlet = 4
+$ sides = 5
