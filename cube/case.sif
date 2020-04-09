@@ -1,7 +1,7 @@
 $ bndry_layer = 0.05
 
 Header
-  Mesh DB "." "cube"
+  Mesh DB "." "cube2"
 End
 
 
@@ -41,7 +41,7 @@ End
 
 Solver 1
   Equation = Kepsilon
-  Element = "p:4"
+!  Element = "p:2"
   Procedure = "KESolver" "KESolver"
  
   Stabilization Method = String Bubbles
@@ -62,7 +62,7 @@ End
 
 Solver 2
   Equation = Navier-Stokes
-  Element = "p:4"
+!  Element = "p:2"
   Stabilization Method = String Bubbles
   Nonlinear System Max Iterations = 1
   Nonlinear System Convergence Tolerance = 1.0e-5
@@ -80,8 +80,10 @@ Solver 2
 End
 
 
-Equation 1 :: Active Solvers(2) = 1 2
-
+Equation 1 
+!  Element = "p:2"
+  Active Solvers(2) = 1 2
+End
 
 Material 1
   Name = "Air (room temperature)"
@@ -112,7 +114,7 @@ Boundary Condition 1
   Name
     String "Inflow"
 
-   Target Boundaries(1) = 3 
+   Target Boundaries(1) = 4 
   Name = "inlet"
   Velocity 1 = 1.0
   Velocity 2 = 0
@@ -134,13 +136,13 @@ End
 !End
 
 Boundary Condition 2
-  Target Boundaries(2) = 2 5
+  Target Boundaries(2) = 2 3
   Name = "wall"
   Noslip wall BC = True
 End
 
 Boundary Condition 3
-  Target Boundaries(1) = 4
+  Target Boundaries(1) = 5
   Name = "outlet"
   Velocity 2 = 0
   Velocity 3 = 0
