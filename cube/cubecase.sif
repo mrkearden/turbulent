@@ -1,0 +1,148 @@
+$ bndry_layer = 0.05
+
+Header
+  Mesh DB "." "cube"
+End
+
+
+Simulation
+  Max Output Level = 5
+  Coordinate System = Cartesian 3D
+
+  Simulation Type = Transient
+
+  Steady State Max Iterations  = 1
+  Output Intervals = 5
+  Timestep intervals = 200
+  Timestep Sizes = .0005
+
+! Output File = "Step_small.result"
+  Post File = "Step.vtu"
+End
+
+
+Body 1
+  Target Bodies(1) = 1
+  Name = "Body 1"
+  Equation = 1
+  Material = 1
+  Initial Condition = 1
+End
+
+Initial Condition 1
+  Velocity 1 = 0
+  Velocity 2 = 0
+
+  Kinetic Energy = 0.003
+  Kinetic Dissipation = 0.0001
+End
+
+
+
+Solver 1
+  Equation = Kepsilon
+  Procedure = "KESolver" "KESolver"
+Stabilization Method = String "p-bubbles"
+Element = "p:1 -tetra b:1 -pyramid b:1 -prism b:1 -brick b:1" 
+  Nonlinear System Max Iterations = 1
+  Nonlinear System Convergence Tolerance = 1.0e-5
+  Nonlinear System Newton After Iterations = 20
+  Nonlinear System Newton After Tolerance = 1.0e-3
+  Nonlinear System Relaxation Factor = 0.75
+
+  Linear System Solver = Iterative
+  Linear System Max Iterations = 1000
+  Linear System Iterative Method = BiCGStab
+  Linear System Preconditioning = ILU1
+  Linear System Convergence Tolerance = 1.0e-7
+
+  Steady State Convergence Tolerance = 1.0e-5
+End
+
+Solver 2
+  Equation = Navier-Stokes
+Stabilization Method = String "p-bubbles"
+Element = "p:1 -tetra b:1 -pyramid b:1 -prism b:1 -brick b:1"
+  Nonlinear System Max Iterations = 1
+  Nonlinear System Convergence Tolerance = 1.0e-5
+  Nonlinear System Newton After Iterations = 10
+  Nonlinear System Newton After Tolerance  = 1.0e-2
+  Nonlinear System Relaxation Factor = 0.75
+
+  Linear System Solver = Iterative
+  Linear System Max Iterations = 1000
+  Linear System Iterative Method = BiCGStab
+  Linear System Preconditioning = ILU1
+  Linear System Convergence Tolerance = 1.0e-7
+
+  Steady State Convergence Tolerance = 1.0e-5
+End
+
+
+Equation 1 
+  Active Solvers(2) = 1 2
+End
+
+Material 1
+  Name = "Air (room temperature)"
+  Relative Permeability = 1.00000037
+  Relative Permeability = 1.00000037
+  Density = 1.205
+  Viscosity = 1.983e-5
+  Relative Permeability = 1.00000037
+  Turbulent Prandtl Number = 0.713
+  Heat Conductivity = 0.0257
+  Relative Permittivity = 1.00059
+  Relative Permittivity = 1.00059
+  Relative Permeability = 1.00000037
+  Heat expansion Coefficient = 3.43e-3
+  Sound speed = 343.0
+  Heat Capacity = 1005.0
+  KE SigmaK = 1.00
+  KE SigmaE = 1.30
+  KE C1     = 1.44
+  KE C2     = 1.92
+  KE Cmu    = 0.09
+  KE Clip   = Real 1.0e-6
+  Viscosity Model = ke
+End
+ 
+
+Boundary Condition 1
+  Name
+    String "Inflow"
+
+   Target Boundaries(1) = 4 
+  Name = "inlet"
+  Velocity 1 = 1.0
+  Velocity 2 = 0
+  Velocity 3 = 0
+
+   Kinetic Energy = Real 0.003
+   Kinetic Dissipation = Real 0.001
+End
+
+
+!Boundary Condition 2
+!  Target Boundaries(3) = 2 4 5
+!  Name = "Walls x"
+!
+!  Velocity 2 = 0
+!
+!  Wall Law = True
+!  Boundary Layer Thickness =  $bndry_layer
+!End
+
+Boundary Condition 2
+  Target Boundaries(2) = 2 3
+  Name = "wall"
+  Noslip wall BC = True
+End
+
+Boundary Condition 3
+  Target Boundaries(1) = 5
+  Name = "outlet"
+  Velocity 2 = 0
+  Velocity 3 = 0
+End
+
