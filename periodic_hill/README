@@ -1,0 +1,6 @@
+3D flow over a bump at a Reynolds number of 10565 (L=0.028m)
+Steady case used to initialise the transient case
+Steady case: simpleFoam
+Transient case: pimpleFoam
+Flow driven using a mean velocity force fvOption
+$FOAM_TUTORIALS/incompressible/pimpleFoam/LES/periodicHill
