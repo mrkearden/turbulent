@@ -1,0 +1,8 @@
+! ----- names for bodies -----
+$ ball = 1
+$ air = 2
+! ----- names for boundaries -----
+$ ball = 1
+$ inlet = 2
+$ outlet = 3
+$ walls = 4
