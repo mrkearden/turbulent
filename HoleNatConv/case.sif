@@ -10,9 +10,11 @@ Simulation
   Coordinate System = Cartesian
   Coordinate Mapping(3) = 1 2 3
   Simulation Type = Transient
+!Simulation Type = Steady State
 Timestep size = .01
 Timestep intervals = 4000
   Steady State Max Iterations = 1
+!Steady State Max Iterations = 10
   Output Intervals(1) = 20
   Solver Input File = case.sif
   Post File = case.vtu
